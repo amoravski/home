@@ -1,0 +1,52 @@
+<h3>Welcome Home!</h3>
+
+<div>
+    <p id="clockbox"></p>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Recent Notes:</th>
+        </tr>
+    </thread>
+  <tbody>
+<%= for note <- @notes do %>
+    <tr>
+      <td><%= note.name %></td>
+      <td><%= note.content %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: note_path(@conn, :show, note), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: note_path(@conn, :edit, note), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: note_path(@conn, :delete, note), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>                                                                                     
+  </tbody>
+
+</table>
+
+<span><%= link "New Note", to: note_path(@conn, :new) %></span>
+
+
+<script>
+    var today = new Date;
+    document.getElementById('date').innerHTML= today.toDateString();
+</script>
+
+
+<script type="text/javascript">
+function GetClock(){
+var d=new Date();
+var nmonth=d.getMonth(),ndate=d.getDate(),nyear=d.getFullYear();
+var nhour=d.getHours(),nmin=d.getMinutes();
+if(nmin<=9) nmin="0"+nmin
+
+var clocktext=""+(nmonth+1)+"-"+ndate+"-"+nyear+" "+nhour+":"+nmin+"";
+document.getElementById('clockbox').innerHTML=clocktext;
+}
+
+GetClock();
+setInterval(GetClock,1000);
+</script>
